@@ -89,7 +89,7 @@ HAVING COUNT(s.ClassClassID) = (
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-exports.getClass=async(req,res) => {
+exports.getClass = async (req, res) => {
   try {
     const { SchoolID } = req.body; // Assuming SchoolID is sent through route parameters
 
@@ -110,7 +110,7 @@ exports.getClass=async(req,res) => {
       });
     }
   } catch (error) {
-    console.error("Error finding classes:", error);
+    console.error("Error find classes:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
