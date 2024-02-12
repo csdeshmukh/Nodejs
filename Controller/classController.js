@@ -6,7 +6,7 @@ exports.addClass = async (req, res) => {
     // Assuming the 'createdAt' and 'updatedAt' will be handled automatically by MySQL as CURRENT_TIMESTAMP
     const query = `INSERT INTO classes (Name, SchoolID, createdAt, updatedAt) VALUES (?, ?, NOW(), NOW())`;
     const [result] = await mySql.execute(query, [Name, SchoolID]);
-
+    //add data in the database
     // Fetch the newly created class to return it in the response
     const [newClass] = await mySql.execute(
       "SELECT * FROM classes WHERE ClassID = ?",
@@ -90,27 +90,27 @@ HAVING COUNT(s.ClassClassID) = (
   }
 };
 exports.getClass=async(req,res) => {
-    try {
-      const { SchoolID } = req.body; // Assuming SchoolID is sent through route parameters
+  try {
+    const { SchoolID } = req.body; // Assuming SchoolID is sent through route parameters
 
-      const query = "SELECT * FROM classes WHERE SchoolID = ?";
-      const [classes] = await mySql.execute(query, [SchoolID]);
+    const query = "SELECT * FROM classes WHERE SchoolID = ?";
+    const [classes] = await mySql.execute(query, [SchoolID]);
 
-      // Check if classes were found
-      if (classes.length > 0) {
-        return res.status(200).json({
-          success: true,
-          message: "Classes found successfully",
-          data: classes,
-        });
-      } else {
-        return res.status(404).json({
-          success: false,
-          message: "No classes found for the given SchoolID",
-        });
-      }
-    } catch (error) {
-      console.error("Error finding classes:", error);
-      return res.status(500).json({ error: "Internal Server Error" });
+    // Check if classes were found
+    if (classes.length > 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Classes found successfully",
+        data: classes,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: "No classes found for the given SchoolID",
+      });
     }
+  } catch (error) {
+    console.error("Error finding classes:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 };
