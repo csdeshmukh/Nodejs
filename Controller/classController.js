@@ -110,7 +110,7 @@ exports.getClass = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("Error find classes:", error);
+    console.error("Error finding classe:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
